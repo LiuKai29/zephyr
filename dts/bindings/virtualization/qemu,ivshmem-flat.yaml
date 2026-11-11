@@ -32,9 +32,10 @@ properties:
 
   interrupts:
     description: |
-      Optional single receive interrupt. Without it, or with
-      CONFIG_IVSHMEM_DOORBELL disabled, only shared memory and peer ID
-      access are supported; notification APIs return -ENOSYS.
+      Optional single receive interrupt. Without it, shared memory,
+      peer ID access, and sending notifications remain available, but
+      registering a notification handler returns -ENOSYS. Sending and
+      receiving notifications require CONFIG_IVSHMEM_DOORBELL.
 
   num-vectors:
     type: int

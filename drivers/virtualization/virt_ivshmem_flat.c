@@ -43,10 +43,11 @@ static uint16_t ivshmem_flat_get_vectors(const struct device *dev)
 
 static int ivshmem_flat_int_peer(const struct device *dev, uint32_t peer_id, uint16_t vector)
 {
-	if (ivshmem_flat_get_vectors(dev) == 0) {
+	if (!IS_ENABLED(CONFIG_IVSHMEM_DOORBELL)) {
 		return -ENOSYS;
 	}
-	if ((vector >= ivshmem_flat_get_vectors(dev)) || (peer_id > UINT16_MAX)) {
+
+	if ((vector != 0) || (peer_id > UINT16_MAX)) {
 		return -EINVAL;
 	}
 

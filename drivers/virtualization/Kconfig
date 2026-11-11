@@ -27,7 +27,8 @@ config IVSHMEM_FLAT
 	help
 	  Enable the memory-mapped ivshmem device for machines without PCI.
 	  Register and shared memory addresses are supplied by devicetree.
-	  Notifications require IVSHMEM_DOORBELL and a devicetree interrupt.
+	  Sending notifications requires IVSHMEM_DOORBELL. Receiving them
+	  also requires a devicetree interrupt.
 	  Only vector zero is supported; configure the server with one vector.
 	  This device does not implement the ivshmem-v2 protocol.
 
@@ -43,7 +44,8 @@ config IVSHMEM_DOORBELL
 	help
 	  This will enable support of ivshmem-doorbell, i.e. the interrupt
 	  based ivshmem. For ivshmem-v2 INTx interrupts are also supported.
-	  For ivshmem-flat, a single interrupt must be supplied in devicetree.
+	  For ivshmem-flat, sending notifications does not require a local IRQ.
+	  Receiving notifications requires a single interrupt in devicetree.
 
 config IVSHMEM_MSI_X_VECTORS
 	int "How many notification vectors should be pre-allocated?"
